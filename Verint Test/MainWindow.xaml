@@ -1,0 +1,36 @@
+﻿<Window x:Class="Verint_Test.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="co"
+        xmlns:local="clr-namespace:Verint_Test"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <BooleanToVisibilityConverter  x:Key="MyBoolToVisibilityConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="279*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Background="White" Grid.Column="0" Grid.Row="0"  >
+            <!-- overlay with hint text -->
+            <TextBlock Margin="5,2" MinWidth="50" Text="type yout address here..." HorizontalAlignment="Left" VerticalAlignment="Center"
+                   Foreground="LightSteelBlue" Visibility="{Binding ElementName=txtSearchBox, Path=Text.IsEmpty, Converter={StaticResource MyBoolToVisibilityConverter}}" />
+            <!-- enter term here -->
+            <TextBox  Name="txtSearchBox" Background="Transparent" Text="www.google.co.il" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        </Grid>
+
+        <Button Grid.Row="0" Grid.Column="1" Command="" Content="Get Site String" Margin="5"/>
+
+        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Background="LightGray"/>
+
+    </Grid>
+</Window>
