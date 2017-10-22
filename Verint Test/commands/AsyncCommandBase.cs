@@ -14,6 +14,7 @@ namespace Verint_Test.commands
 
         public abstract bool CanExecute(object parameter);
 
+
         public async void Execute(object parameter)
         {
             await ExecuteAsync(parameter);
