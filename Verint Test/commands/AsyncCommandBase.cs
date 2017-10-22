@@ -10,7 +10,7 @@ namespace Verint_Test.commands
 {
     public abstract class AsyncCommandBase : IAsyncCommand
     {
-        public event EventHandler CanExecuteChanged;
+        //public event EventHandler CanExecuteChanged;
 
         public abstract bool CanExecute(object parameter);
 
