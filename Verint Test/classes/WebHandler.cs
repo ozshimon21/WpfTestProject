@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,15 +33,22 @@ namespace Verint_Test.classes
 
         public static async Task<string> DownloadWebSite(string urlAddress)
         {
-            var result = await Task.Factory.StartNew(async () =>
-            {
-                System.Net.Http.HttpClient c = new System.Net.Http.HttpClient();
-                var urlResult = await c.GetAsync(urlAddress);
-                return urlResult.Content.ToString();
-            });
-            return result.Result;
+           // await Task.Delay(TimeSpan.FromSeconds(3)).ConfigureAwait(false);
+//            var client = new HttpClient();
+//            using (var response = await client.GetAsync(urlAddress).ConfigureAwait(false))
+//            {
+//                var data = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+//                return data.ToString();
+//            }
+
+            var client = new WebClient();
+            return await client.DownloadStringTaskAsync("http://www.gooogle.com");
         }
 
+        public static async Task<String> test(string name)
+        {
+            return await new Task<string>(() => "");
+        }
       
     }
 }

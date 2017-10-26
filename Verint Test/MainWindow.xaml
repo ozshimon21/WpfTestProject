@@ -5,15 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="co"
         xmlns:local="clr-namespace:Verint_Test"
+        xmlns:converters="clr-namespace:Verint_Test.converters"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
         <BooleanToVisibilityConverter  x:Key="MyBoolToVisibilityConverter"/>
+        <converters:NullToVisibilityConverter x:Key="myNullToVisibilityConverter"/> 
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="279*"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -25,12 +28,26 @@
             <TextBlock Margin="5,2" MinWidth="50" Text="type yout address here..." HorizontalAlignment="Left" VerticalAlignment="Center"
                    Foreground="LightSteelBlue" Visibility="{Binding ElementName=txtSearchBox, Path=Text.IsEmpty, Converter={StaticResource MyBoolToVisibilityConverter}}" />
             <!-- enter term here -->
-            <TextBox  Name="txtSearchBox" Background="Transparent" Text="www.google.co.il" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            <TextBox  Name="txtSearchBox" Background="Transparent" Text="{Binding UrlAddress}" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
         </Grid>
 
-        <Button Grid.Row="0" Grid.Column="1" Command="" Content="Get Site String" Margin="5"/>
+        <Button Grid.Row="0" Grid.Column="1" Command="{Binding DownloadUrlContentCommand}" Content="Get Site String" Margin="5"/>
 
-        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Background="LightGray"/>
+        <Grid Visibility="{Binding DownloadUrlContentCommand.Execution, Converter={StaticResource myNullToVisibilityConverter}}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label Visibility="{Binding DownloadUrlContentCommand.Execution.IsNotCompleted,
+      Converter={StaticResource MyBoolToVisibilityConverter}}"
+                   Content="Loading..." />
+            <!--Error details-->
+            <Label Content="{Binding DownloadUrlContentCommand.Execution.ErrorMessage}"
+                   Visibility="{Binding DownloadUrlContentCommand.Execution.IsFaulted,
+      Converter={StaticResource MyBoolToVisibilityConverter}}" Foreground="Red" />
+        </Grid>
+
+        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
+            <TextBlock  Background="LightGray" Text="{Binding DownloadUrlContentCommand.Execution.Result}" TextWrapping="Wrap" />
+        </Grid>
+        
+       
 
     </Grid>
 </Window>

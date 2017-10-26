@@ -54,8 +54,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="commands\AsyncCommand.cs" />
     <Compile Include="commands\AsyncCommandBase.cs" />
+    <Compile Include="commands\NotifyTaskCompletion.cs" />
+    <Compile Include="converters\NullToVisibilityConverter.cs" />
     <Compile Include="Interfaces\IAsyncCommand.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="viewmodels\MainViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -10,25 +10,19 @@ namespace Verint_Test.commands
 {
     public abstract class AsyncCommandBase : IAsyncCommand
     {
-        //public event EventHandler CanExecuteChanged;
-
         public abstract bool CanExecute(object parameter);
 
+        public abstract Task ExecuteAsync(object parameter);
 
         public async void Execute(object parameter)
         {
             await ExecuteAsync(parameter);
         }
 
-        public Task ExecuteAsync(object parameter)
-        {
-            throw new NotImplementedException();
-        }
-
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
         }
         protected void RaiseCanExecuteChanged()
         {
